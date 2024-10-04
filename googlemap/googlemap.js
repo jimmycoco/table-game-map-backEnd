@@ -1,28 +1,33 @@
-// Initialize and add the map
 let map;
 
 async function initMap() {
-  // The location of Uluru
-  const position = { lat: 25.049212, lng: 121.514012 };
 
-  // Request needed libraries.
-  //@ts-ignore
+  const position = { lat: 25.049212, lng: 121.514012 };
+  const position1 = { lat: 25.049111, lng: 121.514333 };//新增標點
+
+
   const { Map } = await google.maps.importLibrary("maps");
   const { AdvancedMarkerElement } = await google.maps.importLibrary("marker");
 
-  // The map, centered at Uluru
   map = new Map(document.getElementById("map"), {
-    zoom: 4,
+    zoom: 15,
     center: position,
     mapId: "DEMO_MAP_ID",
   });
-
-  // The marker, positioned at Uluru
+  
   const marker = new AdvancedMarkerElement({
     map: map,
     position: position,
     title: "Uluru",
   });
+
+  //新增標點
+  const marker1 = new AdvancedMarkerElement({
+    map: map,
+    position: position1,
+    title: "taipai",
+  });
+  
 }
 
 initMap();
