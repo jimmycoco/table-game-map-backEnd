@@ -27,6 +27,13 @@ async function initMap() {
     position: position1,
     title: "taipai",
   });
+  //點擊出跳出互動視窗
+  marker.addListener("click", () => {
+
+    
+
+    map.setCenter(marker.getPosition());
+  });
   
 }
 
