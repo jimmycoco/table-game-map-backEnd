@@ -15,4 +15,4 @@ const corsOptions = {
 }
 
 
-module.exports = corsOptions;
+module.exports = corsOptions;   

@@ -6,7 +6,7 @@ const UserSchema = new mongoose.Schema({
         type: String,
         required: true
     },
-    //電子郵件，不可與其他人重複
+    //帳號名稱，不可與其他人重複
     username: {
         type: String,
         required: true,
