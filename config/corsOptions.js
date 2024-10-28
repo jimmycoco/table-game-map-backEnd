@@ -1,6 +1,6 @@
 //設定可使用此api的名單
 const whitelist = [
-    'http://127.0.0.1:5500',
+    'http://localhost:3000',
 ];
 
 const corsOptions = {
@@ -11,7 +11,8 @@ const corsOptions = {
             callback(new Error('Not allowed by CORS!'));
         }
     },
-    optionsSuccessStatus: 200
+    optionsSuccessStatus: 204
 }
+
 
 module.exports = corsOptions;

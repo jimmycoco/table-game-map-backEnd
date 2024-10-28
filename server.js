@@ -13,6 +13,9 @@ app.use(bodyParser.json());
 //連接到資料庫
 connectDB();
 
+// Cross origin resources sharing
+app.use(cors(corsOptions));
+
 //引入auth-routes
 app.use('/api/auth', authRoutes);
 
@@ -39,8 +42,7 @@ app.use((err, req, res, next) => {
 app.use('/api/posts', postRoutes);
 
 
-// Cross origin resources sharing
-app.use(cors(corsOptions));
+
 
 
 app.listen(PORT, () => console.log(`Server running on port ${PORT}`));
