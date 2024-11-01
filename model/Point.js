@@ -81,6 +81,12 @@ const PointSchema = new mongoose.Schema({
     ischeck: {
         type: Boolean,
         default: false,
+        require: true,
+    },
+    //申請人
+    whoApply: {
+        type: String,
+        require: true,
     },
     //申請日期
     joinDate: {
