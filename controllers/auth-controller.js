@@ -2,8 +2,8 @@ const config = require('config'); //引入剛剛設定的秘鑰位置
 const bcrypt = require('bcrypt');
 const jwt = require('jsonwebtoken');
 const { check, validationResult } = require('express-validator');
-const User = require('../model/User');
-const HttpError = require('../model/http-error');
+const User = require('../models/User');
+const HttpError = require('../models/http-error');
 
 
 const login = async (req, res, next) => {

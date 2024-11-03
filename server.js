@@ -2,12 +2,13 @@ const express = require('express');
 const app = express();
 const cors = require('cors');
 const corsOptions = require('./config/corsOptions');
-const postRoutes = require('./routes/api/post-route');
+const postsRoutes = require('./routes/api/posts-route');
 const connectDB = require('./config/db');
 const PORT = process.env.PORT || 3500;
 const authRoutes = require('./routes/api/auth-route');
 const bodyParser = require('body-parser');
-
+const usersRoutes = require('./routes/api/users-route');
+const imagesRoutes = require('./routes/api/images-route');
 app.use(bodyParser.json());
 
 //連接到資料庫
@@ -18,6 +19,19 @@ app.use(cors(corsOptions));
 
 //引入auth-routes
 app.use('/api/auth', authRoutes);
+//測試postRoutes
+app.use('/api/posts', postsRoutes);
+
+app.use('/api/users', usersRoutes);
+
+app.use('/api/images', imagesRoutes);
+
+
+app.use(express.json({ extended: false }));
+
+app.use('/uploads', express.static('uploads'));
+
+app.get('/', (req, res) => res.send('API Running'));
 
 app.use((err, req, res, next) => {
     //檢查是否已經向客戶端發送了HTTP header，如果已經發送了，表示已經無法再修改狀態碼和header
@@ -38,8 +52,7 @@ app.use((err, req, res, next) => {
 
 
 
-//測試postRoutes
-app.use('/api/posts', postRoutes);
+
 
 
 
