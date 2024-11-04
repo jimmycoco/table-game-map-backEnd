@@ -10,6 +10,7 @@ const PointSchema = new mongoose.Schema({
     storeAddress: {
         type: String,
         required: true,
+        unique: true,
     },
     //店家座標
     storePosition: {
@@ -58,14 +59,14 @@ const PointSchema = new mongoose.Schema({
         enum: ['yesinfood', 'noinfood'],
         required: true,
     },
-    //營業時間：
+    //可否帶外食
     outFood: {
         type: String,
         enum: ['outyesfood', 'outnofood'],
         required: true,
     },
     //營業時間
-    storePosition: {
+    hours: {
         type: [{
             monday: String,
             tuesday: String,
