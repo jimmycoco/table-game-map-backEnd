@@ -16,6 +16,7 @@ const PointSchema = new mongoose.Schema({
     storePosition: {
         type: [{ lng: Number, lat: Number }],
         required: true,
+        _id: false  // 避免嵌套文檔生成 _id
     },
     //場地費用
     money: {
@@ -77,6 +78,7 @@ const PointSchema = new mongoose.Schema({
             sunday: String
         }],
         required: true,
+        _id: false  // 避免嵌套文檔生成 _id
     },
     //是否過審
     ischeck: {

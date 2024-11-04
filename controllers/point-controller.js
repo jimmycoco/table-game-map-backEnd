@@ -34,7 +34,7 @@ const getCoordinatesFromAddress = async (address) => {
 };
 
 // 定義 Express 路由處理函式
-const addPoint = async (req, res, next) => {
+const addPoint = async (req, res) => {
     try {
         const formData = req.body;
 
@@ -83,4 +83,70 @@ const addPoint = async (req, res, next) => {
     }
 };
 
-exports.addPoint = addPoint;
+
+// 抓取資料庫中符合條件的資料
+const getPointsForMap = async (req, res) => {
+    try {
+        // 查詢已過審的資料
+        const approvedPoints = await Point.find({ ischeck: true });
+
+        // 取得需要的資料
+        const dataForMap = approvedPoints.map(point => ({
+            store: point.store,
+            storePosition: point.storePosition
+        }));
+
+        // 回傳前端
+        res.status(200).json({
+            dataForMap
+        });
+    } catch (error) {
+        console.error('抓取資料失敗:', error);
+        res.status(500).json({ success: false, message: '無法抓取資料', error: error.message });
+    }
+};
+
+const getPointDetails = async (req, res) => {
+    try {
+        const { storePosition } = req.query;
+
+        // 驗證是否提供座標
+        if (!storePosition) {
+            return res.status(400).json({ success: false, message: '請提供店家座標以查詢' });
+        }
+
+        // 解析座標參數
+        const [lng, lat] = storePosition.split(',').map(coord => parseFloat(coord.trim()));
+        if (isNaN(lng) || isNaN(lat)) {
+            return res.status(400).json({ success: false, message: '座標格式錯誤，請使用 "lng,lat" 格式' });
+        }
+
+        // 查詢指定的資料
+        const approvedPoint = await Point.findOne({
+            storePosition: {
+                $elemMatch: {
+                    lng: lng,
+                    lat: lat
+                }
+            }
+        });
+
+        // 如果查無資料，返回 404
+        if (!approvedPoint) {
+            return res.status(404).json({ success: false, message: '找不到符合條件的資料' });
+        }
+
+        // 整理需要的資料，排除 storePosition 和 ischeck
+        const { storePosition: _, ischeck: __, ...dataDetails } = approvedPoint.toObject();
+
+        // 回傳前端
+        res.status(200).json({
+            dataDetails
+        });
+    } catch (error) {
+        console.error('抓取資料失敗:', error);
+        res.status(500).json({ success: false, message: '無法抓取資料', error: error.message });
+    }
+};
+
+module.exports = { addPoint, getPointsForMap, getPointDetails };
