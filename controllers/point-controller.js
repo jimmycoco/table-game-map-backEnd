@@ -1,5 +1,5 @@
 require('dotenv').config();
-const Point = require('../model/Point');
+const Point = require('../models/Point');
 const axios = require('axios');
 
 // Google Maps Geocoding API Key

@@ -3,7 +3,6 @@ const app = express();
 const cors = require('cors');
 const corsOptions = require('./config/corsOptions');
 const bodyParser = require('body-parser');
-const postRoutes = require('./routes/api/post-route');
 const authRoutes = require('./routes/api/auth-route');
 const pointRoutes = require('./routes/api/point-route');
 
@@ -44,8 +43,7 @@ app.use((err, req, res, next) => {
 
 
 
-//測試postRoutes
-app.use('/api/posts', postRoutes);
+
 
 
 
