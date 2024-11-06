@@ -93,7 +93,10 @@ const getPointsForMap = async (req, res) => {
         // 取得需要的資料
         const dataForMap = approvedPoints.map(point => ({
             store: point.store,
-            storePosition: point.storePosition
+            storePosition: point.storePosition.map(pos => ({
+                lng: pos.lng,
+                lat: pos.lat
+            }))
         }));
 
         // 回傳前端
