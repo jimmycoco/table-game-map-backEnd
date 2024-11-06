@@ -1,6 +1,7 @@
 //設定可使用此api的名單
 const whitelist = [
     'http://localhost:3000',
+    'http://192.168.1.83/',
 ];
 
 const corsOptions = {
