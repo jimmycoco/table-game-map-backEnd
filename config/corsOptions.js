@@ -1,7 +1,7 @@
 //設定可使用此api的名單
 const whitelist = [
     'http://localhost:3000',
-    'https://master.d3npaqv7ssxrwi.amplifyapp.com/',
+    'https://master.d3npaqv7ssxrwi.amplifyapp.com',
 ];
 
 const corsOptions = {

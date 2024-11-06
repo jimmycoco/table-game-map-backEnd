@@ -16,7 +16,7 @@ app.use(bodyParser.json());
 connectDB();
 
 // Cross origin resources sharing
-app.use(cors());
+app.use(cors(corsOptions));
 
 //引入auth-route
 app.use('/api/auth', authRoutes);
