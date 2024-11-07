@@ -1,4 +1,3 @@
 {
-    "mongoURI": "mongodb+srv://jimmycoco:1234qwerasdf@trytouse.w2csx.mongodb.net/?retryWrites=true&w=majority&appName=tryToUse",
     "jwtSecret": "secrettoken"
 }
