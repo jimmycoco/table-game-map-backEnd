@@ -18,6 +18,7 @@ connectDB();
 // Cross origin resources sharing
 app.use(cors(corsOptions));
 
+
 //引入auth-route
 app.use('/api/auth', authRoutes);
 
