@@ -1,5 +1,5 @@
 const config = require('config'); //引入剛剛設定的秘鑰位置
-const bcrypt = require('bcrypt');
+const bcrypt = require('bcryptjs');
 const jwt = require('jsonwebtoken');
 const { check, validationResult } = require('express-validator');
 const User = require('../models/User');
