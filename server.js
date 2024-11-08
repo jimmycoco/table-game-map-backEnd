@@ -5,6 +5,9 @@ const corsOptions = require('./config/corsOptions');
 const bodyParser = require('body-parser');
 const authRoutes = require('./routes/api/auth-route');
 const pointRoutes = require('./routes/api/point-route');
+const postRoutes = require('./routes/api/post-route');
+const userRoutes = require('./routes/api/user-route');
+
 
 const connectDB = require('./config/db');
 
@@ -24,6 +27,12 @@ app.use('/api/auth', authRoutes);
 
 //引入point-route
 app.use('/api/point', pointRoutes);
+
+//引入post-route
+app.use('/api/post', postRoutes);
+
+//引入user-route
+app.use('/api/user/', userRoutes);
 
 app.use((err, req, res, next) => {
     //檢查是否已經向客戶端發送了HTTP header，如果已經發送了，表示已經無法再修改狀態碼和header
