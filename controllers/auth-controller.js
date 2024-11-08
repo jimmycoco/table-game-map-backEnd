@@ -64,6 +64,7 @@ const login = async (req, res, next) => {
                 // 將token回傳給客戶端
                 res.json({
                     token: token,
+                    id: user._id,
                     name: user.name,
                 });
             }
