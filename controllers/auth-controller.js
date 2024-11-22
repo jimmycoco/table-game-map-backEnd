@@ -4,6 +4,10 @@ const jwt = require('jsonwebtoken');
 const { check, validationResult } = require('express-validator');
 const User = require('../models/User');
 const HttpError = require('../models/http-error');
+const axios = require('axios'); 
+const CLIENT_ID=process.env.CLIENT_ID;
+const CLIENT_SECRET=process.env.CLIENT_SECRET;
+const qs = require('qs');
 
 
 const login = async (req, res, next) => {
@@ -140,5 +144,65 @@ const registerUser = async (req, res, next) => {
     }
 };
 
+
+// LINE 登入驗證
+const lineLogin = async (req, res ,next) => {
+    const { code } = req.query;
+    if (!code) {
+        return next(new HttpError('無效的 LINE 登入請求', 400));
+    }
+
+    try {
+    
+
+        const response = await axios.post('https://api.line.me/oauth2/v2.1/token', qs.stringify({
+            grant_type: 'authorization_code',
+            code: code,
+            redirect_uri: 'http://localhost:3500/api/auth/lineLogin',
+            client_id: '2006566313',
+            client_secret: '9f9656e8a171adb9cb5d9624cd3380a1'
+        }), {
+            headers: {
+                'Content-Type': 'application/x-www-form-urlencoded'
+            }
+        });
+
+
+            const { access_token } = response.data;
+            const profileResponse = await axios.get('https://api.line.me/v2/profile', {
+                headers: {
+                    Authorization: `Bearer ${access_token}`
+                }
+            });
+    
+        const { displayName, userId } = profileResponse.data;
+        let user = await User.findOne({ name: displayName });
+    
+        
+        if (!user) {
+            user = new User({
+                name: displayName,
+                lineId: userId,
+                joinDate: new Date()
+            });
+            await user.save();
+        }
+
+        res.json({
+            message: 'LINE 登入成功',
+            user: {
+                name: user.name,
+                username: user.username,
+                joinDate: user.joinDate
+            }
+        });
+
+    } catch (error) {
+        console.error('LINE 登入錯誤:', error.response?.data || error.message);
+        next(new HttpError('LINE 登入失敗', 500));
+    }
+};
+
 exports.login = login;
+exports.lineLogin=lineLogin;
 exports.registerUser = registerUser;

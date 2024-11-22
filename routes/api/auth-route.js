@@ -8,4 +8,7 @@ router.post('/login', authControllers.login);
 //使用者註冊, POST /api/auth/register
 router.post('/register', authControllers.registerUser);
 
+//
+router.get('/lineLogin', authControllers.lineLogin);
+
 module.exports = router;

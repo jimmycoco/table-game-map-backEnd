@@ -1,6 +1,9 @@
 const HttpError = require('../models/http-error');
 const User = require('../models/User');
 
+
+
+
 //取得使用者資料
 const getUserProfile = async (req, res) => {
     try {
@@ -52,5 +55,6 @@ const updateUserProfile = async (req, res) => {
         next(new HttpError('Server error', 500));
     }
 };
+
 
 module.exports = { getUserProfile, updateUserProfile };
